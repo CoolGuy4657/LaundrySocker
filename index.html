@@ -31,7 +31,7 @@ button:active{transform:translateY(3px);box-shadow:none}button:disabled{opacity:
 <div class="ov hide" id="dead"><div class="card"><h1>😵 Caught!</h1><p>You got stuffed in the basket.</p><button id="retry">Retry Level</button><button class="lbb">🏆 Leaderboard</button></div></div>
 <div class="ov hide" id="lb" style="z-index:9"><div class="card"><h1>🏆 Top Thieves</h1><div id="lbl"></div><p id="lbn" style="font-size:12px;opacity:.7"></p><button id="lbx">Close</button></div></div>
 <script>
-const SB_URL='',SB_KEY='';/* paste Supabase Project URL + anon public key to turn on the worldwide leaderboard */
+const SB_URL='https://prpovsrzsndrzepfjyur.supabase.co',SB_KEY='sb_publishable_gcATPEDvekXmA8uIMC5lSw__w_OA6F8';/* paste Supabase Project URL + anon public key to turn on the worldwide leaderboard */
 const cv=document.getElementById('c'),ctx=cv.getContext('2d'),$=id=>document.getElementById(id);let W,H,dpr;
 function rs(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr}
 addEventListener('resize',rs);rs();
@@ -88,7 +88,7 @@ function shop(){$('sc').textContent=save.lint;const box=$('ups');box.innerHTML='
   bt.textContent=mx?'MAX':c+' 🟣';bt.disabled=mx||save.lint<c;bt.onclick=()=>{save.lint-=c;save.up[k]++;persist();shop()};d.appendChild(bt);box.appendChild(d)}}
 function begin(){gen();state='play';['start','shop','dead'].forEach(i=>$(i).classList.add('hide'))}
 $('next').onclick=begin;$('retry').onclick=begin;
-const online=!!(SB_URL&&SB_KEY),SBH={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'};
+const online=!!(SB_URL&&SB_KEY),SBH={apikey:SB_KEY,'Content-Type':'application/json',...(SB_KEY.startsWith('eyJ')?{Authorization:'Bearer '+SB_KEY}:{})};
 function lbGet(){try{return JSON.parse(localStorage.getItem('sockLB'))||[]}catch(e){return[]}}
 function lbSubmit(){const nm=save.name||'Sock',sc=(save.lvl-1)*100+save.tot*5;let l=lbGet();const e=l.find(x=>x.n===nm);
  if(e){if(sc>e.s){e.s=sc;e.l=save.lvl}}else l.push({n:nm,s:sc,l:save.lvl});l.sort((a,b)=>b.s-a.s);l=l.slice(0,10);
