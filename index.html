@@ -17,8 +17,10 @@ button:active{transform:translateY(3px);box-shadow:none}button:disabled{opacity:
 #nm{font:inherit;padding:8px 12px;border-radius:10px;border:2px solid var(--ac);background:#141c36;color:var(--fg);text-align:center;margin-top:8px}
 .row{display:flex;justify-content:space-between;background:#0003;border-radius:8px;padding:6px 12px;margin:4px 0;font-size:15px}.row.top{background:#ff5d8f44}
 .hide{display:none}
+#ban{position:fixed;top:0;left:0;right:0;padding:calc(6px + env(safe-area-inset-top,0px)) 8px 6px;text-align:center;font-weight:900;font-size:clamp(22px,5vw,40px);background:var(--ac);color:#fff;z-index:5;pointer-events:none;text-shadow:0 3px 0 #a02a52}
 </style></head><body>
 <canvas id="c"></canvas>
+<div id="ban">Eli Bars, do you like this? 🧦</div>
 <button id="dash">DASH</button>
 <div class="ov" id="start"><div class="card"><h1>🧦 Sock Thief</h1>
 <p>You're a sneaky sock. Steal every lonely sock in the laundry room, then dive into the <b>dryer</b>. Dodge the angry laundry baskets!</p>
@@ -106,7 +108,7 @@ function sockShape(x,y,c,face,stripe){ctx.fillStyle=c;ctx.beginPath();ctx.ellips
  ctx.fillStyle=stripe;ctx.fillRect(x-7,y-24,14,4);}
 function draw(){
  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#1b2540';ctx.fillRect(0,0,W,H);if(!ob)return;
- const sc=Math.min(W/(RW+30),(H-70)/(RH+WH+30)),ox=(W-RW*sc)/2,oy=(H-RH*sc)/2+30;
+ const sc=Math.min(W/(RW+30),(H-150)/(RH+WH+30)),ox=(W-RW*sc)/2,oy=(H-RH*sc)/2+62;
  ctx.setTransform(dpr*sc,0,0,dpr*sc,dpr*ox,dpr*oy);
  ctx.fillStyle='#0004';ctx.fillRect(-6,-6,RW+12,RH+14);
  for(let y=0;y<CH;y++)for(let x=0;x<CW;x++){ctx.fillStyle=(x+y)%2?'#dbe7f5':'#c6d6ea';ctx.fillRect(x*T,y*T,T+1,T+1)}
@@ -129,10 +131,10 @@ function draw(){
   ctx.fillStyle='#fff';ctx.strokeStyle='#222';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x-2,y-bob-14,3.2,0,7);ctx.arc(x+5,y-bob-14,3.2,0,7);ctx.fill();ctx.stroke();ctx.fillStyle='#000';ctx.beginPath();ctx.arc(x-2+f*1.5,y-bob-14,1.4,0,7);ctx.arc(x+5+f*1.5,y-bob-14,1.4,0,7);ctx.fill()}]);
  L.sort((a,b)=>a[0]-b[0]).forEach(o=>o[1]());
  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#f4f7ff';ctx.font='bold 16px Trebuchet MS,sans-serif';ctx.textAlign='left';
- ctx.fillText(`Level ${save.lvl}   🧦 ${socks.length} left   🟣 ${save.lint}`,14,28);
- for(let i=0;i<P.max;i++){ctx.globalAlpha=i<P.hp?1:.25;ctx.fillText('❤️',14+i*24,54)}ctx.globalAlpha=1;
- if(P.cd>0){ctx.fillStyle='#fff8';ctx.fillRect(14,62,60*(1-P.cd/cdMax()),4)}
- if(msgT>0){ctx.textAlign='center';ctx.font='bold 20px Trebuchet MS,sans-serif';ctx.fillStyle='#ffd23f';ctx.fillText(msg,W/2,52)}
+ ctx.fillText(`Level ${save.lvl}   🧦 ${socks.length} left   🟣 ${save.lint}`,14,86);
+ for(let i=0;i<P.max;i++){ctx.globalAlpha=i<P.hp?1:.25;ctx.fillText('❤️',14+i*24,112)}ctx.globalAlpha=1;
+ if(P.cd>0){ctx.fillStyle='#fff8';ctx.fillRect(14,120,60*(1-P.cd/cdMax()),4)}
+ if(msgT>0){ctx.textAlign='center';ctx.font='bold 20px Trebuchet MS,sans-serif';ctx.fillStyle='#ffd23f';ctx.fillText(msg,W/2,150)}
 }
 let last=performance.now();
 (function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;if(state==='play')update(dt);draw();requestAnimationFrame(loop)})(last);
